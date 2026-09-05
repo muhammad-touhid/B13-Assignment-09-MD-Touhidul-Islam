@@ -23,7 +23,7 @@ export default function Footer() {
                 <CarFront size={21} className="text-[#fefefe]" />
               </div>
 
-              <span className="text-xl font-bold tracking-tight text-[#07030e] dark:text-[#fefefe]">
+              <span className="text-xl font-bold tracking-tight text-[#fefefe]">
                 Go<span className="text-[#ed1d26]">Drive</span>
               </span>
             </Link>
