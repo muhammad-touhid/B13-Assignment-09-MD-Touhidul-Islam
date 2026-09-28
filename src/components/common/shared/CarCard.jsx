@@ -68,7 +68,7 @@ export default function CarCard({ car }) {
 
         {/* Details Button */}
         <Link
-          href={`/cars/${car._id}`}
+          href={`/explore-cars/${car._id}`}
           className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-[#ed1d26] px-4 py-3 text-sm font-semibold text-[#fefefe] transition hover:bg-[#c9151d]"
         >
           View Details

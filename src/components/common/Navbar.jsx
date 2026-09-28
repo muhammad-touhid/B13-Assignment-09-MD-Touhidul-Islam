@@ -4,8 +4,12 @@ import Link from "next/link";
 import { Menu, X, CarFront } from "lucide-react";
 import { useState } from "react";
 import ThemeToggle from "../ThemeToggle";
+import { authClient } from "@/lib/auth-client";
+import { Avatar } from "@heroui/react";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
@@ -14,6 +18,19 @@ export default function Header() {
     { name: "Add Car", href: "/add-car" },
     { name: "My Bookings", href: "/my-bookings" },
   ];
+
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
+  const handleLogout = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login");
+        },
+      },
+    });
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-md dark:border-white/10 dark:bg-[#07030e]/95">
@@ -45,18 +62,40 @@ export default function Header() {
         {/* Desktop Right Side */}
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
-
-          <Link
-            href="/login"
-            className="rounded-lg bg-[#ed1d26] px-5 py-2.5 text-sm font-semibold text-[#fefefe] transition hover:bg-[#c9151d]"
-          >
-            Login
-          </Link>
+          {user ? (
+            <div className="flex items-center gap-3">
+              <Avatar size="sm">
+                <Avatar.Image alt="Small Avatar" src={user?.image} />
+                <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+              </Avatar>
+              <button
+                onClick={handleLogout}
+                className="cursor-pointer rounded-lg bg-[#ed1d26] px-5 py-2.5 text-sm font-semibold text-[#fefefe] transition hover:bg-[#c9151d]"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="rounded-lg bg-[#ed1d26] px-5 py-2.5 text-sm font-semibold text-[#fefefe] transition hover:bg-[#c9151d]"
+            >
+              Login
+            </Link>
+          )}
         </div>
 
         {/* Mobile Controls */}
         <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
+          {user ? (
+            <Avatar size="sm">
+              <Avatar.Image alt="Small Avatar" src={user?.image} />
+              <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+            </Avatar>
+          ) : (
+            ""
+          )}
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -82,14 +121,22 @@ export default function Header() {
                 {link.name}
               </Link>
             ))}
-
-            <Link
-              href="/login"
-              onClick={() => setIsMenuOpen(false)}
-              className="mt-2 rounded-lg bg-[#ed1d26] px-4 py-3 text-center text-sm font-semibold text-[#fefefe] transition hover:bg-[#c9151d]"
-            >
-              Login
-            </Link>
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="cursor-pointer t-2 rounded-lg bg-[#ed1d26] px-4 py-3 text-center text-sm font-semibold text-[#fefefe] transition hover:bg-[#c9151d]"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setIsMenuOpen(false)}
+                className="mt-2 rounded-lg bg-[#ed1d26] px-4 py-3 text-center text-sm font-semibold text-[#fefefe] transition hover:bg-[#c9151d]"
+              >
+                Login
+              </Link>
+            )}
           </nav>
         </div>
       )}
