@@ -1,6 +1,6 @@
 "use client";
 
-import CarCard from "@/components/common/shared/CarCard";
+import CarCard from "@/components/shared/CarCard";
 import { useEffect, useState } from "react";
 
 export default function ExploreCarsPage() {
