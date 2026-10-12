@@ -5,12 +5,15 @@ import { Trash } from "lucide-react";
 
 export function BookingCancelAlert({ bookingUserId }) {
   const handleCancelBooking = async () => {
-    const res = await fetch(`http://localhost:5000/bookings/${bookingUserId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${bookingUserId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
   };
 
   return (

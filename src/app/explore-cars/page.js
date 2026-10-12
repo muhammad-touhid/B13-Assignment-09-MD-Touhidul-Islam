@@ -11,7 +11,7 @@ export default function ExploreCarsPage() {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const res = await fetch("http://localhost:5000/cars");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/cars`);
 
         if (!res) {
           throw new Error("Failed to fetch cars");

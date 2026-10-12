@@ -1,11 +1,21 @@
 import Link from "next/link";
 import BookingForm from "@/components/BookingForm";
-import { authClient } from "@/lib/auth-client";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 async function getCar(id) {
-  const response = await fetch(`http://localhost:5000/cars/${id}`, {
-    cache: "no-store",
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
   });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/cars/${id}`,
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
+  );
 
   if (!response.ok) {
     return null;

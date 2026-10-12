@@ -11,7 +11,9 @@ export default async function BookingCard() {
 
   const user = session?.user;
 
-  const res = await fetch(`http://localhost:5000/bookings/${user.id}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${user.id}`,
+  );
 
   if (!res.ok) {
     return (
@@ -28,7 +30,7 @@ export default async function BookingCard() {
 
   if (!bookings || bookings.length === 0) {
     return (
-      <div className="rounded-3xl border border-gray-200 bg-white p-60 text-center dark:border-white/10 dark:bg-[#0d0915]">
+      <div className="rounded-3xl border border-gray-200 bg-white py-60 text-center dark:border-white/10 dark:bg-[#0d0915]">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-[#fefefe]">
           No Bookings Found
         </h2>
@@ -41,9 +43,9 @@ export default async function BookingCard() {
   }
 
   return (
-    <div className="space-y-8 my-10 container m-auto">
+    <div className="space-y-8 my-10 container m-auto px-5">
       <div>
-        <h1 className="my-12 text-5xl font-bold text-gray-900 dark:text-[#fefefe]">
+        <h1 className="my-12 text-3xl md:text-5xl font-bold text-gray-900 dark:text-[#fefefe]">
           My Bookings
         </h1>
       </div>
@@ -53,7 +55,7 @@ export default async function BookingCard() {
           return (
             <div
               key={booking._id}
-              className="flex w-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md md:flex-row dark:border-white/10 dark:bg-[#0d0915] p-4"
+              className="flex w-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md md:flex-row dark:border-white/10 dark:bg-[#0d0915] p-4 relative"
             >
               <div className="relative min-h-48 w-full shrink-0 md:w-64 lg:w-72">
                 <img
@@ -71,10 +73,9 @@ export default async function BookingCard() {
                         {booking.carName}
                       </h2>
                     </div>
-                    <BookingCancelAlert bookingUserId={booking.userId} />
                   </div>
 
-                  <div className="mt-6 grid grid-cols-1 sm:grid-cols-2">
+                  <div className="mt-6 grid grid-cols-2 gap-6 mb-16">
                     <div className="flex items-start gap-3">
                       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#ed1d26]/10 text-[#ed1d26]">
                         <CalendarDays size={17} />
@@ -102,6 +103,9 @@ export default async function BookingCard() {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="absolute bottom-5 right-5 md:top-5 md:right-5">
+                <BookingCancelAlert bookingUserId={booking.userId} />
               </div>
             </div>
           );

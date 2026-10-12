@@ -9,10 +9,21 @@ import {
   CheckCircle2,
   XCircle,
 } from "lucide-react";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 
 export default async function CarDetailsPage({ params }) {
   const { id } = await params;
-  const res = await fetch(`http://localhost:5000/cars/${id}`);
+
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/cars/${id}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
   const car = await res.json();
 
   if (!car) {
