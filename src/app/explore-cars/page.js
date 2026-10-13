@@ -13,8 +13,8 @@ export default function ExploreCarsPage() {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/cars`);
 
-        if (!res) {
-          throw new Error("Failed to fetch cars");
+        if (!res.ok) {
+          throw new Error(`Failed to fetch cars: ${res.status}`);
         }
 
         const data = await res.json();
