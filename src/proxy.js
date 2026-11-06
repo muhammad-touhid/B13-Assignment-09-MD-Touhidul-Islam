@@ -15,5 +15,5 @@ export async function proxy(request) {
 }
 
 export const config = {
-  matcher: ["/add-car", "/explore-cars/:path"], // Adjust the path to match your protected routes
+  matcher: ["/add-car", "/explore-cars/:path", "/my-bookings"], // Adjust the path to match your protected routes
 };

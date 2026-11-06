@@ -18,6 +18,7 @@ export default async function CarDetailsPage({ params }) {
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
+  console.log("Token exists:", !!token);
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/cars/${id}`, {
     headers: {
@@ -25,6 +26,8 @@ export default async function CarDetailsPage({ params }) {
     },
   });
   const car = await res.json();
+
+  console.log("Car Details:", car.carName);
 
   if (!car) {
     return (

@@ -29,8 +29,8 @@ export default function Footer() {
             </Link>
 
             <p className="mt-4 max-w-sm text-sm leading-6 text-gray-400">
-              Helping students and professionals achieve their goals through
-              quality education and expert guidance.
+              GoDrive makes car rentals simple, affordable, and convenient. Find
+              your perfect ride and enjoy every journey with confidence.
             </p>
 
             {/* Social Icons */}

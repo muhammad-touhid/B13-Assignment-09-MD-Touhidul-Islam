@@ -5,7 +5,7 @@ import { Menu, X, CarFront } from "lucide-react";
 import { useState } from "react";
 import ThemeToggle from "../ThemeToggle";
 import { authClient } from "@/lib/auth-client";
-import { Avatar } from "@heroui/react";
+import { Avatar, Button, Dropdown, Label } from "@heroui/react";
 import { useRouter } from "next/navigation";
 
 export default function Header() {
@@ -62,19 +62,59 @@ export default function Header() {
         {/* Desktop Right Side */}
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
+
           {user ? (
-            <div className="flex items-center gap-3">
-              <Avatar size="sm">
-                <Avatar.Image alt="Small Avatar" src={user?.image} />
-                <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
-              </Avatar>
-              <button
-                onClick={handleLogout}
-                className="cursor-pointer rounded-lg bg-[#ed1d26] px-5 py-2.5 text-sm font-semibold text-[#fefefe] transition hover:bg-[#c9151d]"
-              >
-                Logout
-              </button>
-            </div>
+            <Dropdown>
+              <Button aria-label="User menu" className="p-0 m-0 bg-transparent">
+                <Avatar size="sm">
+                  <Avatar.Image alt={user.name || "User"} src={user.image} />
+                  <Avatar.Fallback>
+                    {user?.name?.charAt(0)?.toUpperCase() || "U"}
+                  </Avatar.Fallback>
+                </Avatar>
+              </Button>
+
+              <Dropdown.Popover>
+                <Dropdown.Menu
+                  onAction={(key) => {
+                    if (key === "addedCars") {
+                      router.push("/added-cars");
+                    }
+
+                    if (key === "bookings") {
+                      router.push("/my-bookings");
+                    }
+                    if (key === "addCar") {
+                      router.push("/add-car");
+                    }
+
+                    if (key === "logout") {
+                      handleLogout();
+                    }
+                  }}
+                >
+                  <Dropdown.Item id="addCar" textValue="Add Car">
+                    <Label>Add Car</Label>
+                  </Dropdown.Item>
+
+                  <Dropdown.Item id="bookings" textValue="My Bookings">
+                    <Label>My Bookings</Label>
+                  </Dropdown.Item>
+
+                  <Dropdown.Item id="addedCars" textValue="My Added Cars">
+                    <Label>My Added Cars</Label>
+                  </Dropdown.Item>
+
+                  <Dropdown.Item
+                    id="logout"
+                    textValue="Logout"
+                    variant="danger"
+                  >
+                    <Label>Logout</Label>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown.Popover>
+            </Dropdown>
           ) : (
             <Link
               href="/login"
@@ -89,12 +129,64 @@ export default function Header() {
         <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
           {user ? (
-            <Avatar size="sm">
-              <Avatar.Image alt="Small Avatar" src={user?.image} />
-              <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
-            </Avatar>
+            <Dropdown>
+              <Button aria-label="User menu" className="p-0 m-0 bg-transparent">
+                <Avatar size="sm">
+                  <Avatar.Image alt={user.name || "User"} src={user.image} />
+                  <Avatar.Fallback>
+                    {user?.name?.charAt(0)?.toUpperCase() || "U"}
+                  </Avatar.Fallback>
+                </Avatar>
+              </Button>
+
+              <Dropdown.Popover>
+                <Dropdown.Menu
+                  onAction={(key) => {
+                    if (key === "addedCars") {
+                      router.push("/added-cars");
+                    }
+
+                    if (key === "bookings") {
+                      router.push("/my-bookings");
+                    }
+                    if (key === "addCar") {
+                      router.push("/add-car");
+                    }
+
+                    if (key === "logout") {
+                      handleLogout();
+                    }
+                  }}
+                >
+                  <Dropdown.Item id="addCar" textValue="Add Car">
+                    <Label>Add Car</Label>
+                  </Dropdown.Item>
+
+                  <Dropdown.Item id="bookings" textValue="My Bookings">
+                    <Label>My Bookings</Label>
+                  </Dropdown.Item>
+
+                  <Dropdown.Item id="addedCars" textValue="My Added Cars">
+                    <Label>My Added Cars</Label>
+                  </Dropdown.Item>
+
+                  <Dropdown.Item
+                    id="logout"
+                    textValue="Logout"
+                    variant="danger"
+                  >
+                    <Label>Logout</Label>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown.Popover>
+            </Dropdown>
           ) : (
-            ""
+            <Link
+              href="/login"
+              className="rounded-lg bg-[#ed1d26] px-5 py-2.5 text-sm font-semibold text-[#fefefe] transition hover:bg-[#c9151d]"
+            >
+              Login
+            </Link>
           )}
 
           <button

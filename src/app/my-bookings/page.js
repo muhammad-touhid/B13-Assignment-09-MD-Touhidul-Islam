@@ -1,6 +1,5 @@
 import { BookingCancelAlert } from "@/components/BookingCancelAlert";
 import { auth } from "@/lib/auth";
-import { Button } from "@heroui/react";
 import { CalendarDays, Trash } from "lucide-react";
 import { headers } from "next/headers";
 
@@ -12,7 +11,7 @@ export default async function BookingCard() {
   const user = session?.user;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${user.id}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${user?.id}`,
   );
 
   if (!res.ok) {
