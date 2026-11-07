@@ -78,14 +78,14 @@ export default function Header() {
                 <Dropdown.Menu
                   onAction={(key) => {
                     if (key === "addedCars") {
-                      router.push("/added-cars");
+                      router.push("/my-added-cars");
                     }
 
                     if (key === "bookings") {
                       router.push("/my-bookings");
                     }
                     if (key === "addCar") {
-                      router.push("/add-car");
+                      router.push("/add-cars");
                     }
 
                     if (key === "logout") {
@@ -143,14 +143,14 @@ export default function Header() {
                 <Dropdown.Menu
                   onAction={(key) => {
                     if (key === "addedCars") {
-                      router.push("/added-cars");
+                      router.push("/my-added-cars");
                     }
 
                     if (key === "bookings") {
                       router.push("/my-bookings");
                     }
                     if (key === "addCar") {
-                      router.push("/add-car");
+                      router.push("/add-cars");
                     }
 
                     if (key === "logout") {

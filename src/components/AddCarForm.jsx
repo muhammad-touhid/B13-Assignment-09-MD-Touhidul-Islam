@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import {
   Button,
   FieldError,
@@ -14,22 +15,37 @@ import toast from "react-hot-toast";
 
 export default function AddCarForm() {
   const handleSubmit = async (e) => {
+    const form = e.currentTarget;
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
     const carData = Object.fromEntries(formData.entries());
 
     carData.dailyRentPrice = Number(carData.dailyRentPrice);
     carData.seatCapacity = Number(carData.seatCapacity);
 
+    const { data, error } = await authClient.token();
+    if (error || !data?.token) {
+      toast.error("Authentication failed. Please log in again.");
+      return;
+    }
+
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/cars`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${data.token}`,
       },
       body: JSON.stringify(carData),
     });
 
-    const data = await res.json();
+    const responseData = await res.json();
+
+    if (res.ok) {
+      toast.success("Car added successfully!");
+      form.reset();
+    } else {
+      toast.error(responseData.message || "Failed to add car!");
+    }
   };
 
   return (

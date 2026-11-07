@@ -57,7 +57,7 @@ export default function RegisterPage() {
         <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24">
           <section className="max-w-xl pt-10">
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-[#ed1d26]">
-              Welcome to DriveFleet
+              Welcome to GoDrive
             </p>
 
             <h1 className="text-4xl font-bold leading-tight text-gray-900 dark:text-[#fefefe] sm:text-5xl lg:text-6xl">
@@ -66,9 +66,9 @@ export default function RegisterPage() {
             </h1>
 
             <p className="mt-6 max-w-lg text-base leading-7 text-gray-600 dark:text-white/60 sm:text-lg">
-              Create your DriveFleet account and enjoy a simple and convenient
-              car rental experience. Find your perfect car, make a booking, and
-              get ready for your next journey.
+              Create your GoDrive account and enjoy a simple and convenient car
+              rental experience. Find your perfect car, make a booking, and get
+              ready for your next journey.
             </p>
           </section>
 
@@ -145,10 +145,10 @@ export default function RegisterPage() {
                   name="password"
                   type="password"
                   isRequired
-                  minLength={8}
+                  minLength={6}
                   validate={(value) => {
-                    if (value.length < 8) {
-                      return "Password must be at least 8 characters";
+                    if (value.length < 6) {
+                      return "Password must be at least 6 characters";
                     }
 
                     if (!/[A-Z]/.test(value)) {
@@ -171,7 +171,7 @@ export default function RegisterPage() {
                   />
 
                   <p className="mt-2 text-xs text-gray-500 dark:text-white/40">
-                    Must be at least 8 characters with 1 uppercase letter and 1
+                    Must be at least 6 characters with 1 uppercase letter and 1
                     number.
                   </p>
 
