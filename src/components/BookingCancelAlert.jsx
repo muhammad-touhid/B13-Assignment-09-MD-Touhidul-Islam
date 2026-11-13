@@ -1,19 +1,42 @@
 "use client";
 
 import { AlertDialog, Button } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 import { Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
-export function BookingCancelAlert({ bookingUserId }) {
+export function BookingCancelAlert({ bookingId }) {
+  const router = useRouter();
+
   const handleCancelBooking = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${bookingUserId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      const { data, error } = await authClient.token();
+
+      if (error || !data?.token) {
+        toast.error("Please login first");
+        return;
+      }
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${bookingId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
         },
-      },
-    );
+      );
+
+      if (res.ok) {
+        toast.success("Booking cancelled successfully");
+        router.refresh();
+      } else {
+        toast.error("Failed to cancel booking");
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
@@ -24,10 +47,12 @@ export function BookingCancelAlert({ bookingUserId }) {
       >
         <Trash /> Cancel Booking
       </Button>
+
       <AlertDialog.Backdrop>
         <AlertDialog.Container>
           <AlertDialog.Dialog className="sm:max-w-[400px]">
             <AlertDialog.CloseTrigger />
+
             <AlertDialog.Header>
               <AlertDialog.Icon status="danger" />
               <AlertDialog.Heading>
@@ -39,6 +64,7 @@ export function BookingCancelAlert({ bookingUserId }) {
               <Button slot="close" variant="tertiary">
                 Cancel
               </Button>
+
               <Button
                 onClick={handleCancelBooking}
                 slot="close"

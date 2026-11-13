@@ -160,7 +160,11 @@ export default function MyAddedCars() {
   };
 
   if (loading) {
-    return <p className="text-center py-10">Loading your cars...</p>;
+    return (
+      <div className="flex min-h-[300px] items-center justify-center">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#ed1d26]" />
+      </div>
+    );
   }
 
   return (

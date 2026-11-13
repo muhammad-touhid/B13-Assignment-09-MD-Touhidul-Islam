@@ -52,7 +52,9 @@ export default function AvailableCars() {
 
         {/* Loading */}
         {loading && (
-          <p className="py-10 text-center">Loading available cars...</p>
+          <main className="flex h-70 items-center justify-center bg-gray-50 dark:bg-[#07030e]">
+            <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#ed1d26]" />
+          </main>
         )}
 
         {/* Car Cards */}
