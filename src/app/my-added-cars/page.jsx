@@ -159,18 +159,14 @@ export default function MyAddedCars() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex min-h-[300px] items-center justify-center">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#ed1d26]" />
-      </div>
-    );
-  }
-
   return (
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-4xl font-bold mt-10 mb-6">My Added Cars</h1>
-
+      {loading && (
+        <main className="flex h-70 items-center justify-center bg-gray-50 dark:bg-[#07030e]">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#ed1d26]" />
+        </main>
+      )}
       {/* Cars List */}
       {cars.length === 0 ? (
         <p className="text-center py-10 text-gray-500">

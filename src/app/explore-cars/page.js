@@ -5,38 +5,39 @@ import { useEffect, useState } from "react";
 
 export default function ExploreCarsPage() {
   const [cars, setCars] = useState([]);
+  const [search, setSearch] = useState("");
+  const [type, setType] = useState("All");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchCars = async () => {
+      setError("");
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/cars`);
+        setLoading(true);
 
-        if (!res.ok) {
-          throw new Error(`Failed to fetch cars: ${res.status}`);
-        }
+        const params = new URLSearchParams({
+          search: search,
+          type: type,
+        });
+
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/cars?${params}`,
+        );
 
         const data = await res.json();
+
         setCars(data);
       } catch (error) {
-        console.error(error);
-        setError("Unable to load cars. Please try again.");
+        console.error("Error fetching cars:", error);
+        setError("Failed to load cars. Please try again.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchCars();
-  }, []);
-
-  if (loading) {
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-[#07030e]">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#ed1d26]" />
-      </main>
-    );
-  }
+  }, [search, type]);
 
   if (error) {
     return (
@@ -64,9 +65,37 @@ export default function ExploreCarsPage() {
             range of reliable and comfortable vehicles.
           </p>
         </div>
+        <div className="mb-10 max-w-xl flex flex-col items-center justify-between gap-4 sm:flex-row">
+          {/* Search Input */}
+          <input
+            type="text"
+            placeholder="Search by car name..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full rounded-lg border p-3"
+          />
 
+          {/* Type Filter */}
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            className="w-full rounded-lg border p-3"
+          >
+            <option value="All">All Car Types</option>
+            <option value="SUV">SUV</option>
+            <option value="Sedan">Sedan</option>
+            <option value="Hatchback">Hatchback</option>
+            <option value="Luxury">Luxury</option>
+          </select>
+        </div>
         {/* Cars Grid */}
-        {cars.length === 0 ? (
+        {/* Cars Grid */}
+        {loading ? (
+          <div className="py-20 text-center">
+            <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#ed1d26]" />
+            <p className="mt-3 text-gray-500">Loading cars...</p>
+          </div>
+        ) : cars.length === 0 ? (
           <div className="py-20 text-center">
             <p className="text-gray-500 dark:text-white/60">
               No cars available at the moment.

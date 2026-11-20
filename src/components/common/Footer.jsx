@@ -115,7 +115,7 @@ export default function Footer() {
           </div>
 
           {/* Contact Information */}
-          <div className="ml-0 sm:ml-20">
+          <div className="ml-0 lg:ml-20">
             <h3 className="text-sm font-semibold uppercase tracking-wider">
               Contact Information
             </h3>

@@ -8,6 +8,7 @@ import {
   CalendarDays,
   CheckCircle2,
   XCircle,
+  CalendarCheck,
 } from "lucide-react";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
@@ -133,7 +134,7 @@ export default async function CarDetailsPage({ params }) {
                 </p>
               </div>
 
-              <div className="col-span-2 rounded-2xl border border-gray-200 p-4 dark:border-white/10">
+              <div className="rounded-2xl border border-gray-200 p-4 dark:border-white/10">
                 <MapPin size={22} className="mb-2 text-[#ed1d26]" />
 
                 <p className="text-xs text-gray-500 dark:text-white/50">
@@ -142,6 +143,17 @@ export default async function CarDetailsPage({ params }) {
 
                 <p className="mt-1 font-semibold text-[#07030e] dark:text-[#fefefe]">
                   {car.pickupLocation}
+                </p>
+              </div>
+              <div className="rounded-2xl border border-gray-200 p-4 dark:border-white/10">
+                <CalendarCheck size={20} className="mb-2 text-[#ed1d26]" />
+
+                <p className="text-xs text-gray-500 dark:text-white/50">
+                  Total Bookings
+                </p>
+
+                <p className="mt-1 font-semibold text-[#07030e] dark:text-[#fefefe]">
+                  {car.booking_count || 0}
                 </p>
               </div>
             </div>

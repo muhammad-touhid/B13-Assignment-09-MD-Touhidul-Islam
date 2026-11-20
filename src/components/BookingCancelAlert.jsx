@@ -49,8 +49,8 @@ export function BookingCancelAlert({ bookingId }) {
       </Button>
 
       <AlertDialog.Backdrop>
-        <AlertDialog.Container>
-          <AlertDialog.Dialog className="sm:max-w-[400px]">
+        <AlertDialog.Container placement="center">
+          <AlertDialog.Dialog className="sm:max-w-[400px] rounded-3xl border border-gray-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#0d0915]">
             <AlertDialog.CloseTrigger />
 
             <AlertDialog.Header>
