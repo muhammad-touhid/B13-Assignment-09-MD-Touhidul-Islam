@@ -50,9 +50,9 @@ export default function LoginPage() {
             </h1>
 
             <p className="mt-6 max-w-lg text-base leading-7 text-gray-600 dark:text-white/60 sm:text-lg">
-              Sign in to your DriveFleet account and continue your journey.
-              Manage your bookings, explore available cars, and get back on the
-              road with ease.
+              Sign in to your GoDrive account and continue your journey. Manage
+              your bookings, explore available cars, and get back on the road
+              with ease.
             </p>
           </section>
 

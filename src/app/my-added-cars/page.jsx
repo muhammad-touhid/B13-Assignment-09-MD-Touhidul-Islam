@@ -14,7 +14,6 @@ export default function MyAddedCars() {
   const [editCar, setEditCar] = useState(null);
   const [updating, setUpdating] = useState(false);
 
-  // Fetch logged-in user's cars
   const fetchMyCars = async () => {
     try {
       const { data, error } = await authClient.token();

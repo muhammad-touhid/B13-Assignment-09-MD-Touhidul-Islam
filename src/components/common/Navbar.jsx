@@ -85,7 +85,7 @@ export default function Header() {
                       router.push("/my-bookings");
                     }
                     if (key === "addCar") {
-                      router.push("/add-cars");
+                      router.push("/add-car");
                     }
 
                     if (key === "logout") {
@@ -150,7 +150,7 @@ export default function Header() {
                       router.push("/my-bookings");
                     }
                     if (key === "addCar") {
-                      router.push("/add-cars");
+                      router.push("/add-car");
                     }
 
                     if (key === "logout") {
